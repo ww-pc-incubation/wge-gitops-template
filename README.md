@@ -1,0 +1,1 @@
+# wge-gitops-template
