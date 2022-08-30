@@ -38,9 +38,14 @@ spec:
       # secretName: null
     config:
       capi:
-        repositoryURL: https://github.com/MGMT_ORG/MGMT_REPO
+        repositoryURL: https://github.com/$MGMT_ORG/$MGMT_REPO
         # -- Can be changed depending on your git repo structure
         repositoryPath: ./clusters/management/clusters
         # repositoryClustersPath: ./cluster
       git:
         type: github
+    policy-agent:
+      accountId: "weaveworks"
+      clusterId: "$MGMT_REPO"
+      enabled: false
+      

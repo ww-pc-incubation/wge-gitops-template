@@ -31,7 +31,7 @@ spec:
   values:
     policy-agent:
       accountId: "weaveworks"
-      clusterId: "MGMT_REPO"
+      clusterId: "$MGMT_REPO"
       failurePolicy: Ignore
     policySource:
       enabled: false
