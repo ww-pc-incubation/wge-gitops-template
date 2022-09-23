@@ -4,11 +4,12 @@ metadata:
   namespace: flux-system
   name: wge-ingress
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
       - pathType: Prefix
-        path: "/"
+        path: "/wge"
         backend:
           service:
             name: clusters-service
