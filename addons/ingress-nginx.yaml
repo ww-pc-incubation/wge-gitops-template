@@ -34,22 +34,26 @@ spec:
         type: NodePort
       admissionWebhooks:
         failurePolicy: Ignore # https://github.com/kubernetes/ingress-nginx/issues/5401
-  # postRenderers:
-  #   # Instruct helm-controller to use built-in "kustomize" post renderer.
-  #   - kustomize:
-  #       # Array of inline strategic merge patch definitions as YAML object.
-  #       # Note, this is a YAML object and not a string, to avoid syntax
-  #       # indention errors.
-  #       patchesStrategicMerge:
-  #         - kind: Deployment
-  #           apiVersion: apps/v1
-  #           metadata:
-  #             name: ingress-nginx-controller
-  #           spec:
-  #             template:
-  #               spec:
-  #                 tolerations:
-  #                   - key: "ingress-ready"
-  #                     operator: "Equal"
-  #                     value: "true"
-  #                     effect: "NoSchedule"
+  postRenderers:
+    # Instruct helm-controller to use built-in "kustomize" post renderer.
+    - kustomize:
+        # Array of inline strategic merge patch definitions as YAML object.
+        # Note, this is a YAML object and not a string, to avoid syntax
+        # indention errors.      
+        patches:
+        - patch: |-
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: all
+            spec:
+              template:
+                spec:
+                  tolerations:
+                    - key: "ingress-ready"
+                      operator: "Equal"
+                      value: "true"
+                      effect: "NoSchedule"
+          target:
+            kind: Deployment
+            labelSelector: "app.kubernetes.io/instance=ingress-nginx"  
